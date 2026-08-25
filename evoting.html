@@ -1,0 +1,568 @@
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>E-Voting Registration Window</title>
+<style>
+  :root {
+    --bg: #F7F6F1;
+    --surface: #FFFFFF;
+    --surface-2: #F1F3EE;
+    --ink: #1E2620;
+    --muted: #5A6659;
+    --faint: #8A9489;
+    --line: #DFE2DA;
+    --line-soft: #ECEEE8;
+    --accent: #A87B36;
+    --accent-bg: #F7EEDA;
+    --danger: #A32B1E;
+    --danger-bg: #FAEBE7;
+    --ok: #47704C;
+    --green: #47704C;
+    --green-deep: #2C4732;
+    --green-soft: #EAF1EA;
+    --gold-lt: #C8984F;
+    --shadow:    0 1px 2px rgba(23,26,36,.06), 0 8px 24px -16px rgba(23,26,36,.28);
+
+    --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, 'Cascadia Mono', 'SF Mono', Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12160F;
+      --surface: #1A1F18;
+      --surface-2: #212719;
+      --ink: #E9EDE6;
+      --muted: #A3AC9F;
+      --faint: #7C857A;
+      --line: #2C332A;
+      --line-soft: #232A21;
+      --accent: #D9A441;
+      --accent-bg: #2A2416;
+      --danger: #EE8878;
+      --danger-bg: #2E1C18;
+      --ok: #7FA985;
+      --green: #7FA985;
+      --green-deep: #A9C8AE;
+      --green-soft: #1B2A1E;
+      --gold-lt: #E4BA6B;
+      --shadow:    0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12160F;
+    --surface: #1A1F18;
+    --surface-2: #212719;
+    --ink: #E9EDE6;
+    --muted: #A3AC9F;
+    --faint: #7C857A;
+    --line: #2C332A;
+    --line-soft: #232A21;
+    --accent: #D9A441;
+    --accent-bg: #2A2416;
+    --danger: #EE8878;
+    --danger-bg: #2E1C18;
+    --ok: #7FA985;
+    --green: #7FA985;
+    --green-deep: #A9C8AE;
+    --green-soft: #1B2A1E;
+    --gold-lt: #E4BA6B;
+    --shadow:    0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16.5px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 40px 24px 72px; }
+
+  .mast { border-bottom: 1px solid var(--line); padding-bottom: 24px; margin-bottom: 34px; }
+  .rule { width: 62px; height: 3px; background: var(--gold-lt); border-radius: 2px; margin: 16px 0 14px; }
+  .eyebrow {
+    font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 14px;
+  }
+  h1 {
+    font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 5vw, 46px);
+    line-height: 1.08; margin: 0 0 10px; text-wrap: balance; letter-spacing: -.01em;
+  }
+  .standfirst { margin: 0; color: var(--muted); max-width: 62ch; font-size: 17px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(218px, 1fr)); gap: 14px; margin-bottom: 14px; }
+  .tile {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+    padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .tile .lab {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--faint); margin-bottom: 8px;
+  }
+  .tile .val {
+    font-family: var(--font-mono); font-size: 27px; font-weight: 600;
+    font-variant-numeric: tabular-nums; line-height: 1.1; white-space: nowrap;
+    letter-spacing: -.02em;
+  }
+  .tile .tzs {
+    font-family: var(--font-body); font-size: 12.5px; font-weight: 700; letter-spacing: .1em;
+    color: var(--faint); margin-left: 7px; vertical-align: 3px;
+  }
+  .tile.accent .tzs { color: var(--accent); }
+  .tile .dt {
+    font-family: var(--font-display); font-size: 16px; color: var(--ink);
+    margin-top: 5px; line-height: 1.25;
+  }
+  .tile .sub { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .tile.accent { border-color: var(--accent); background: var(--accent-bg); }
+  .tile.accent .val, .tile.accent .dt { color: var(--accent); }
+
+  .nojs {
+    display: none; background: var(--accent-bg); border: 1px solid var(--accent);
+    border-radius: 4px; padding: 16px 20px; margin-bottom: 44px; font-size: 14.5px;
+  }
+  .nojs p { margin: 0 0 8px; }
+  .nojs p:last-child { margin: 0; }
+
+  /* ---------- live clock ---------- */
+  .clock {
+    background: var(--surface); border: 1px solid var(--line);
+    border-left: 3px solid var(--accent); border-radius: 4px;
+    padding: 18px 20px; margin-bottom: 44px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 20px 28px;
+  }
+  .clock .lab {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--faint); margin-bottom: 7px;
+  }
+  .clock .now {
+    font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+    font-size: 27px; font-weight: 600; line-height: 1.15; letter-spacing: -.02em;
+    min-height: 32px; white-space: nowrap;
+  }
+  .clock .tzs {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: .1em;
+    color: var(--faint); margin-left: 7px; vertical-align: 3px;
+  }
+  .clock .day { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.35; }
+  .clock .zone { color: var(--accent); font-weight: 600; }
+
+  /* segmented countdown — keeps units on one line and digits from reflowing */
+  .cd { display: flex; gap: 14px; min-height: 32px; }
+  .cd .seg { display: flex; flex-direction: column; align-items: flex-start; }
+  .cd b {
+    font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+    font-size: 27px; font-weight: 600; line-height: 1.15; letter-spacing: -.02em;
+  }
+  .cd i {
+    font-family: var(--font-mono); font-style: normal; font-size: 9px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin-top: 3px;
+  }
+  .status.open   .cd b { color: var(--ok); }
+  .status.soon   .cd b { color: var(--accent); }
+  .status.closed .cd b { color: var(--danger); }
+  .status .day { display: flex; align-items: center; }
+  .pip {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor; margin-right: 8px; flex: none;
+  }
+  .status.open   .pip { color: var(--ok); animation: pulse 2s ease-in-out infinite; }
+  .status.soon   .pip { color: var(--accent); }
+  .status.closed .pip { color: var(--danger); }
+  @keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: .2 } }
+  #yours {
+    grid-column: 1 / -1; margin: 0; padding-top: 15px;
+    border-top: 1px solid var(--line-soft); font-size: 14.5px; color: var(--muted);
+  }
+  #yours strong { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+
+  section { margin-bottom: 44px; }
+  h2 {
+    font-family: var(--font-display); font-size: 27px; font-weight: 600; color: var(--green-deep);
+    margin: 0 0 4px; letter-spacing: -.01em;
+  }
+  .lede { margin: 0 0 20px; font-size: 15px; color: var(--muted); max-width: 68ch; }
+
+  .alerts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .alert {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+    padding: 18px 20px; border-top: 3px solid var(--danger);
+  }
+  .alert h3 { font-family: var(--font-display); margin: 0 0 7px; font-size: 18px;
+             font-weight: 600; color: var(--green-deep); }
+  .alert p { margin: 0; font-size: 14px; color: var(--muted); }
+  .alert em { font-style: normal; color: var(--danger); font-weight: 700; }
+
+  .scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 680px; font-size: 14px; }
+  thead th {
+    position: sticky; top: 0; background: var(--surface-2); z-index: 1;
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--faint); font-weight: 600;
+    text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: baseline; }
+  tbody tr:last-child td { border-bottom: 0; }
+  .region { font-weight: 600; }
+  .tz { font-family: var(--font-mono); font-size: 12px; color: var(--faint); white-space: nowrap; }
+  .when { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 13px; }
+  tr.wed td { background: var(--danger-bg); }
+  tr.wed .closes { color: var(--danger); font-weight: 700; }
+  tr.venue td { background: var(--accent-bg); }
+  tr.venue .region { color: var(--accent); }
+  tr.me td { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .key { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .key span { display: flex; align-items: center; gap: 7px; }
+  .sw { width: 13px; height: 13px; border-radius: 2px; border: 1px solid var(--line); flex: none; }
+
+  .fix { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 20px 22px; }
+  .fix dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; align-items: baseline; }
+  .fix dt {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--faint); white-space: nowrap;
+  }
+  .fix dd { margin: 0; }
+  .fix a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  .fix a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  code {
+    font-family: var(--font-mono); font-size: 13px; background: var(--surface-2);
+    border: 1px solid var(--line); border-radius: 3px; padding: 1px 5px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line); padding-top: 18px;
+    font-size: 13px; color: var(--faint);
+  }
+  footer p { margin: 0 0 5px; max-width: 78ch; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 28px 16px 56px; }
+    .scroll { border: 0; background: none; overflow-x: visible; }
+    table, tbody, tr, td { display: block; width: auto; }
+    table { min-width: 0; }
+    thead { display: none; }
+    tbody tr {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 5px;
+      padding: 4px 0; margin-bottom: 10px;
+    }
+    tbody tr.wed { border-color: var(--danger); }
+    tbody tr.venue { border-color: var(--accent); }
+    tbody td {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+      border-bottom: 1px solid var(--line-soft); padding: 9px 14px;
+    }
+    tbody td:last-child { border-bottom: 0; }
+    tbody td[data-label="Region"] {
+      display: block; font-size: 16px; padding-top: 12px; border-bottom: 0;
+    }
+    tbody td[data-label="Region"]::before { content: none; }
+    tbody td[data-label="Zone"] { border-bottom: 1px solid var(--line); padding-bottom: 11px; }
+    tbody td::before {
+      content: attr(data-label);
+      font-family: var(--font-body); font-size: 10.5px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--faint);
+      flex: none;
+    }
+    tr.me td { outline: 0; }
+    tbody tr.me { outline: 2px solid var(--accent); outline-offset: -1px; }
+    .cd { gap: 11px; }
+    .cd b { font-size: 24px; }
+  }
+  @media (max-width: 400px) {
+    .cd { gap: 9px; }
+    .cd b { font-size: 21px; }
+    .cd i { font-size: 8.5px; letter-spacing: .1em; }
+    .clock { padding: 16px 16px; gap: 16px; }
+    .clock .now { font-size: 24px; }
+    .tile .val { font-size: 26px; }
+    .tile .tzs {
+    font-family: var(--font-body); font-size: 12.5px; font-weight: 700; letter-spacing: .1em;
+    color: var(--faint); margin-left: 7px; vertical-align: 3px;
+  }
+  .tile.accent .tzs { color: var(--accent); }
+  .tile .dt { font-size: 15px; }
+    tbody td { padding: 8px 12px; gap: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <p class="eyebrow">Malankara Association 2026 &middot; Mulamthuruthy, 27 August</p>
+    <h1>The 18-hour registration window</h1>
+    <div class="rule"></div>
+    <p class="standfirst">To vote electronically you must first register, and registration opens and
+      closes inside a single overnight window, Indian time. Miss it and you cannot vote. Wherever you
+      are, that window lands on your own clock at a different hour &mdash; and in the Americas it
+      closes on Wednesday night, a day earlier than most people assume.</p>
+  </header>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="lab">Registration opens</div>
+      <div class="val">5:00 PM<span class="tzs">IST</span></div>
+      <div class="dt">Wednesday 26 August</div>
+      <div class="sub">The portal opens for registration</div>
+    </div>
+    <div class="tile">
+      <div class="lab">Registration closes</div>
+      <div class="val">11:00 AM<span class="tzs">IST</span></div>
+      <div class="dt">Thursday 27 August</div>
+      <div class="sub">After this you cannot register</div>
+    </div>
+    <div class="tile accent">
+      <div class="lab">Meeting begins</div>
+      <div class="val">1:00 PM<span class="tzs">IST</span></div>
+      <div class="dt">Thursday 27 August</div>
+      <div class="sub">Two hours after registration shuts</div>
+    </div>
+    <div class="tile">
+      <div class="lab">Registration window</div>
+      <div class="val">18 hours</div>
+      <div class="dt">Overnight, Indian time</div>
+      <div class="sub">Register inside it or you cannot vote</div>
+    </div>
+  </div>
+
+  <noscript>
+    <style>
+      .clock { display: none !important; }
+      .nojs { display: block !important; }
+    </style>
+  </noscript>
+
+  <div class="nojs">
+    <p><strong>The live clock and countdown need JavaScript.</strong> This looks like a file
+      preview &mdash; open the page in a browser (Safari, Chrome) and it will show the time in India,
+      the time where you are, and a countdown to the deadline.</p>
+    <p>Everything else on this page works as it is. Registration opens
+      <strong>Wednesday 26 August, 5:00 PM IST</strong> and closes
+      <strong>Thursday 27 August, 11:00 AM IST</strong>. Find your own region in the table below.</p>
+  </div>
+
+  <div class="clock" id="clock">
+    <div class="cell">
+      <div class="lab">Now in India</div>
+      <div class="now" id="ist-now">&mdash;</div>
+      <div class="day" id="ist-day">&nbsp;</div>
+    </div>
+    <div class="cell">
+      <div class="lab">Now where you are</div>
+      <div class="now" id="loc-now">&mdash;</div>
+      <div class="day" id="loc-day">&nbsp;</div>
+    </div>
+    <div class="cell status" id="status">
+      <div class="lab" id="status-lab">Registration</div>
+      <div class="cd">
+        <span class="seg"><b id="cd-d">&mdash;</b><i>days</i></span>
+        <span class="seg"><b id="cd-h">&mdash;</b><i>hrs</i></span>
+        <span class="seg"><b id="cd-m">&mdash;</b><i>min</i></span>
+        <span class="seg"><b id="cd-s">&mdash;</b><i>sec</i></span>
+      </div>
+      <div class="day"><span class="pip"></span><span id="status-sub">&nbsp;</span></div>
+    </div>
+    <p id="yours">Checking your device&rsquo;s time zone&hellip;</p>
+  </div>
+
+  <section>
+    <h2>Three ways to get the time wrong</h2>
+    <p class="lede">Each of these catches people out on an ordinary conversion table.</p>
+    <div class="alerts">
+      <div class="alert">
+        <h3>In the Americas it closes Wednesday night</h3>
+        <p>Pacific and Arizona shut at <em>10:30 PM Wednesday</em>, Mountain at
+          <em>11:30 PM Wednesday</em>. Anyone planning to register &ldquo;Thursday morning&rdquo; will
+          find it closed, by twelve hours.</p>
+      </div>
+      <div class="alert">
+        <h3>Phoenix is not on Mountain time</h3>
+        <p>Arizona does not observe daylight saving, so through August it runs on the
+          <em>Pacific clock</em> &mdash; an hour behind the rest of the Mountain zone.</p>
+      </div>
+      <div class="alert">
+        <h3>Atlantic Canada and Newfoundland</h3>
+        <p>Halifax sits at UTC&minus;3, and Newfoundland at <em>UTC&minus;2:30</em> &mdash; a half-hour
+          offset that almost no conversion table bothers to include.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Every region, west to east</h2>
+    <p class="lede">Find your own region. The closing time is the one that matters &mdash; it is the moment registration shuts, not the vote itself.</p>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Region</th>
+            <th scope="col">Zone</th>
+            <th scope="col">Registration opens</th>
+            <th scope="col">Registration closes</th>
+            <th scope="col">Meeting begins</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="wed" data-off="-7"><td data-label="Region" class="region">US / Canada &mdash; Pacific</td><td data-label="Zone" class="tz">PDT &middot; UTC&minus;7</td><td data-label="Opens" class="when">Wed 26, 4:30 AM</td><td data-label="Closes" class="when closes">Wed 26, 10:30 PM</td><td data-label="Meeting" class="when">Thu 27, 12:30 AM</td></tr>
+          <tr class="wed"><td data-label="Region" class="region">Arizona <span class="tz">no daylight saving</span></td><td data-label="Zone" class="tz">MST &middot; UTC&minus;7</td><td data-label="Opens" class="when">Wed 26, 4:30 AM</td><td data-label="Closes" class="when closes">Wed 26, 10:30 PM</td><td data-label="Meeting" class="when">Thu 27, 12:30 AM</td></tr>
+          <tr class="wed" data-off="-6"><td data-label="Region" class="region">US / Canada &mdash; Mountain</td><td data-label="Zone" class="tz">MDT &middot; UTC&minus;6</td><td data-label="Opens" class="when">Wed 26, 5:30 AM</td><td data-label="Closes" class="when closes">Wed 26, 11:30 PM</td><td data-label="Meeting" class="when">Thu 27, 1:30 AM</td></tr>
+          <tr data-off="-5"><td data-label="Region" class="region">US &mdash; Central</td><td data-label="Zone" class="tz">CDT &middot; UTC&minus;5</td><td data-label="Opens" class="when">Wed 26, 6:30 AM</td><td data-label="Closes" class="when closes">Thu 27, 12:30 AM</td><td data-label="Meeting" class="when">Thu 27, 2:30 AM</td></tr>
+          <tr data-off="-4"><td data-label="Region" class="region">US / Canada &mdash; Eastern</td><td data-label="Zone" class="tz">EDT &middot; UTC&minus;4</td><td data-label="Opens" class="when">Wed 26, 7:30 AM</td><td data-label="Closes" class="when closes">Thu 27, 1:30 AM</td><td data-label="Meeting" class="when">Thu 27, 3:30 AM</td></tr>
+          <tr data-off="-3"><td data-label="Region" class="region">Atlantic Canada</td><td data-label="Zone" class="tz">ADT &middot; UTC&minus;3</td><td data-label="Opens" class="when">Wed 26, 8:30 AM</td><td data-label="Closes" class="when closes">Thu 27, 2:30 AM</td><td data-label="Meeting" class="when">Thu 27, 4:30 AM</td></tr>
+          <tr data-off="-2.5"><td data-label="Region" class="region">Newfoundland</td><td data-label="Zone" class="tz">NDT &middot; UTC&minus;2:30</td><td data-label="Opens" class="when">Wed 26, 9:00 AM</td><td data-label="Closes" class="when closes">Thu 27, 3:00 AM</td><td data-label="Meeting" class="when">Thu 27, 5:00 AM</td></tr>
+          <tr data-off="1"><td data-label="Region" class="region">United Kingdom</td><td data-label="Zone" class="tz">BST &middot; UTC+1</td><td data-label="Opens" class="when">Wed 26, 12:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 6:30 AM</td><td data-label="Meeting" class="when">Thu 27, 8:30 AM</td></tr>
+          <tr><td data-label="Region" class="region">Ireland</td><td data-label="Zone" class="tz">IST &middot; UTC+1</td><td data-label="Opens" class="when">Wed 26, 12:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 6:30 AM</td><td data-label="Meeting" class="when">Thu 27, 8:30 AM</td></tr>
+          <tr><td data-label="Region" class="region">West Africa <span class="tz">Lagos</span></td><td data-label="Zone" class="tz">WAT &middot; UTC+1</td><td data-label="Opens" class="when">Wed 26, 12:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 6:30 AM</td><td data-label="Meeting" class="when">Thu 27, 8:30 AM</td></tr>
+          <tr data-off="2"><td data-label="Region" class="region">Central Europe</td><td data-label="Zone" class="tz">CEST &middot; UTC+2</td><td data-label="Opens" class="when">Wed 26, 1:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 7:30 AM</td><td data-label="Meeting" class="when">Thu 27, 9:30 AM</td></tr>
+          <tr><td data-label="Region" class="region">South Africa</td><td data-label="Zone" class="tz">SAST &middot; UTC+2</td><td data-label="Opens" class="when">Wed 26, 1:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 7:30 AM</td><td data-label="Meeting" class="when">Thu 27, 9:30 AM</td></tr>
+          <tr data-off="3"><td data-label="Region" class="region">Kuwait &middot; Saudi &middot; Qatar &middot; Bahrain</td><td data-label="Zone" class="tz">AST &middot; UTC+3</td><td data-label="Opens" class="when">Wed 26, 2:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 8:30 AM</td><td data-label="Meeting" class="when">Thu 27, 10:30 AM</td></tr>
+          <tr data-off="4"><td data-label="Region" class="region">UAE &middot; Oman</td><td data-label="Zone" class="tz">GST &middot; UTC+4</td><td data-label="Opens" class="when">Wed 26, 3:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 9:30 AM</td><td data-label="Meeting" class="when">Thu 27, 11:30 AM</td></tr>
+          <tr class="venue" data-off="5.5"><td data-label="Region" class="region">India &mdash; meeting venue</td><td data-label="Zone" class="tz">IST &middot; UTC+5:30</td><td data-label="Opens" class="when">Wed 26, 5:00 PM</td><td data-label="Closes" class="when closes">Thu 27, 11:00 AM</td><td data-label="Meeting" class="when">Thu 27, 1:00 PM</td></tr>
+          <tr data-off="8"><td data-label="Region" class="region">Singapore &middot; Malaysia</td><td data-label="Zone" class="tz">SGT &middot; UTC+8</td><td data-label="Opens" class="when">Wed 26, 7:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 1:30 PM</td><td data-label="Meeting" class="when">Thu 27, 3:30 PM</td></tr>
+          <tr><td data-label="Region" class="region">Australia &mdash; Perth</td><td data-label="Zone" class="tz">AWST &middot; UTC+8</td><td data-label="Opens" class="when">Wed 26, 7:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 1:30 PM</td><td data-label="Meeting" class="when">Thu 27, 3:30 PM</td></tr>
+          <tr data-off="9.5"><td data-label="Region" class="region">Australia &mdash; Adelaide</td><td data-label="Zone" class="tz">ACST &middot; UTC+9:30</td><td data-label="Opens" class="when">Wed 26, 9:00 PM</td><td data-label="Closes" class="when closes">Thu 27, 3:00 PM</td><td data-label="Meeting" class="when">Thu 27, 5:00 PM</td></tr>
+          <tr data-off="10"><td data-label="Region" class="region">Australia &mdash; Sydney, Melbourne, Brisbane</td><td data-label="Zone" class="tz">AEST &middot; UTC+10</td><td data-label="Opens" class="when">Wed 26, 9:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 3:30 PM</td><td data-label="Meeting" class="when">Thu 27, 5:30 PM</td></tr>
+          <tr data-off="12"><td data-label="Region" class="region">New Zealand</td><td data-label="Zone" class="tz">NZST &middot; UTC+12</td><td data-label="Opens" class="when">Wed 26, 11:30 PM</td><td data-label="Closes" class="when closes">Thu 27, 5:30 PM</td><td data-label="Meeting" class="when">Thu 27, 7:30 PM</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="key">
+      <span><i class="sw" style="background:var(--danger-bg);border-color:var(--danger)"></i> Closes Wednesday night, local time</span>
+      <span><i class="sw" style="background:var(--accent-bg);border-color:var(--accent)"></i> Meeting venue</span>
+      <span><i class="sw" style="background:var(--surface);outline:2px solid var(--accent);outline-offset:-2px"></i> Your region</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>If your details are wrong on the list</h2>
+    <p class="lede">The one-time password is sent to whatever mobile number and email address appear
+      against your name on the official e-voting list. If either is out of date &mdash; or belongs to
+      someone else &mdash; your voting code will go to the wrong place and you will not be able to vote.
+      Check your entry now, and correct it before registration opens.</p>
+    <div class="fix">
+      <dl>
+        <dt>Email</dt>
+        <dd><a href="mailto:evote@mosc2026.org">evote@mosc2026.org</a> &mdash; give your name, parish,
+          member ID, and your correct mobile number and email address</dd>
+        <dt>Helpdesk</dt>
+        <dd><code>+91 98451 31646</code> &nbsp; <code>+91 99959 79109</code> &nbsp;
+          <code>+91 91889 52751</code></dd>
+        <dt>Portal</dt>
+        <dd><a href="https://mosc2026.org/mevote/">mosc2026.org/mevote/</a></dd>
+        <dt>Deadline</dt>
+        <dd>Before 5:00 PM IST on 26 August, when registration opens</dd>
+      </dl>
+    </div>
+  </section>
+
+  <footer>
+    <p>Times are converted from the registration window published on the Association&rsquo;s voting
+      portal: registration opens 26 August 2026 at 5:00 PM IST and closes 27 August at 11:00 AM IST,
+      with the meeting beginning at 1:00 PM IST. Daylight saving is applied as it stands in late August.</p>
+    <p>Please confirm your own local conversion against the official portal before relying on it.</p>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var OPEN  = Date.UTC(2026, 7, 26, 11, 30);
+    var CLOSE = Date.UTC(2026, 7, 27,  5, 30);
+    var MEET  = Date.UTC(2026, 7, 27,  7, 30);
+
+    var istNow = document.getElementById('ist-now');
+    var istDay = document.getElementById('ist-day');
+    var locNow = document.getElementById('loc-now');
+    var locDay = document.getElementById('loc-day');
+    var statusEl = document.getElementById('status');
+    var statusLab = document.getElementById('status-lab');
+    var statusSub = document.getElementById('status-sub');
+    var cd = { d: document.getElementById('cd-d'), h: document.getElementById('cd-h'),
+               m: document.getElementById('cd-m'), s: document.getElementById('cd-s') };
+    var yours = document.getElementById('yours');
+    var zone = '', abbr = '';
+    try {
+      abbr = new Intl.DateTimeFormat(undefined, { timeZoneName: 'short' })
+        .formatToParts(new Date()).filter(function (x) { return x.type === 'timeZoneName'; })[0].value;
+    } catch (e) { abbr = ''; }
+
+    function partsIn(d, opts) {
+      return new Intl.DateTimeFormat(undefined, opts).format(d);
+    }
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function countdown(ms) {
+      var s = Math.max(0, Math.floor(ms / 1000));
+      cd.d.textContent = pad(Math.floor(s / 86400));
+      cd.h.textContent = pad(Math.floor(s % 86400 / 3600));
+      cd.m.textContent = pad(Math.floor(s % 3600 / 60));
+      cd.s.textContent = pad(s % 60);
+    }
+    function full(ms) {
+      return new Date(ms).toLocaleString(undefined, {
+        weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric',
+        minute: '2-digit', timeZoneName: 'short'
+      });
+    }
+
+    function tick() {
+      var now = Date.now(), d = new Date(now);
+
+      istNow.innerHTML = partsIn(d, { timeZone: 'Asia/Kolkata', hour: 'numeric',
+                                      minute: '2-digit', second: '2-digit', hour12: true }) +
+                         '<span class="tzs">IST</span>';
+      istDay.textContent = partsIn(d, { timeZone: 'Asia/Kolkata', weekday: 'long',
+                                        day: 'numeric', month: 'long' });
+
+      locNow.innerHTML = partsIn(d, { hour: 'numeric', minute: '2-digit',
+                                      second: '2-digit', hour12: true }) +
+                         (abbr ? '<span class="tzs">' + abbr + '</span>' : '');
+      locDay.innerHTML = partsIn(d, { weekday: 'long', day: 'numeric', month: 'long' }) +
+                         (zone ? ' &middot; <span class="zone">' + zone + '</span>' : '');
+
+      statusEl.classList.remove('open', 'soon', 'closed');
+      if (now < OPEN) {
+        statusEl.classList.add('soon');
+        statusLab.textContent = 'Registration opens in';
+        countdown(OPEN - now);
+        statusSub.textContent = 'Not yet open';
+      } else if (now < CLOSE) {
+        statusEl.classList.add('open');
+        statusLab.textContent = 'Registration closes in';
+        countdown(CLOSE - now);
+        statusSub.textContent = 'Open now — register';
+      } else if (now < MEET) {
+        statusEl.classList.add('closed');
+        statusLab.textContent = 'Meeting begins in';
+        countdown(MEET - now);
+        statusSub.textContent = 'Registration has closed';
+      } else {
+        statusEl.classList.add('closed');
+        statusLab.textContent = 'Registration';
+        countdown(0);
+        statusSub.textContent = 'Closed';
+      }
+    }
+
+    try {
+      zone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      yours.innerHTML = 'On this device, registration opens <strong>' + full(OPEN) +
+        '</strong>, closes <strong>' + full(CLOSE) + '</strong>, and the meeting begins <strong>' +
+        full(MEET) + '</strong>.';
+      var offHrs = -new Date(CLOSE).getTimezoneOffset() / 60;
+      var rows = document.querySelectorAll('tr[data-off]');
+      for (var i = 0; i < rows.length; i++) {
+        if (Math.abs(parseFloat(rows[i].getAttribute('data-off')) - offHrs) < 0.01) {
+          rows[i].classList.add('me');
+        }
+      }
+    } catch (e) {
+      yours.textContent = 'Times below are shown in each region’s own local clock.';
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
