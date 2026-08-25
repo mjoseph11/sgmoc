@@ -483,9 +483,31 @@
     var cd = { d: document.getElementById('cd-d'), h: document.getElementById('cd-h'),
                m: document.getElementById('cd-m'), s: document.getElementById('cd-s') };
     var yours = document.getElementById('yours');
-    var zone = '', abbr = '';
+    var zone = '', abbr = '', TZ, forced = null;
+
+    // ?tz=Asia/Dubai forces a zone, for checking how the page reads elsewhere.
+    // A VPN cannot do this: the browser takes the time zone from the operating
+    // system, never from the network route, so routing through Asia still
+    // reports the machine's own zone.
     try {
-      abbr = new Intl.DateTimeFormat(undefined, { timeZoneName: 'short' })
+      var q = /[?&]tz=([^&]+)/.exec(location.search);
+      if (q) {
+        var cand = decodeURIComponent(q[1]);
+        new Intl.DateTimeFormat(undefined, { timeZone: cand });  // throws if invalid
+        forced = cand;
+      }
+    } catch (e) { forced = null; }
+    TZ = forced ? { timeZone: forced } : {};
+
+    function withTZ(o) {
+      var out = {}, k;
+      for (k in o) { if (Object.prototype.hasOwnProperty.call(o, k)) out[k] = o[k]; }
+      if (forced && !out.timeZone) out.timeZone = forced;
+      return out;
+    }
+
+    try {
+      abbr = new Intl.DateTimeFormat(undefined, withTZ({ timeZoneName: 'short' }))
         .formatToParts(new Date()).filter(function (x) { return x.type === 'timeZoneName'; })[0].value;
     } catch (e) { abbr = ''; }
 
@@ -501,10 +523,10 @@
       cd.s.textContent = pad(s % 60);
     }
     function full(ms) {
-      return new Date(ms).toLocaleString(undefined, {
+      return new Date(ms).toLocaleString(undefined, withTZ({
         weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric',
         minute: '2-digit', timeZoneName: 'short'
-      });
+      }));
     }
 
     function tick() {
@@ -516,10 +538,10 @@
       istDay.textContent = partsIn(d, { timeZone: 'Asia/Kolkata', weekday: 'long',
                                         day: 'numeric', month: 'long' });
 
-      locNow.innerHTML = partsIn(d, { hour: 'numeric', minute: '2-digit',
-                                      second: '2-digit', hour12: true }) +
+      locNow.innerHTML = partsIn(d, withTZ({ hour: 'numeric', minute: '2-digit',
+                                      second: '2-digit', hour12: true })) +
                          (abbr ? '<span class="tzs">' + abbr + '</span>' : '');
-      locDay.innerHTML = partsIn(d, { weekday: 'long', day: 'numeric', month: 'long' }) +
+      locDay.innerHTML = partsIn(d, withTZ({ weekday: 'long', day: 'numeric', month: 'long' })) +
                          (zone ? ' &middot; <span class="zone">' + zone + '</span>' : '');
 
       statusEl.classList.remove('open', 'soon', 'closed');
@@ -547,11 +569,22 @@
     }
 
     try {
-      zone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-      yours.innerHTML = 'On this device, registration opens <strong>' + full(OPEN) +
+      zone = forced || Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      yours.innerHTML = (forced ? '<strong>Showing ' + forced + '</strong> (test view). ' : '') +
+        'On this device, registration opens <strong>' + full(OPEN) +
         '</strong>, closes <strong>' + full(CLOSE) + '</strong>, and the meeting begins <strong>' +
         full(MEET) + '</strong>.';
-      var offHrs = -new Date(CLOSE).getTimezoneOffset() / 60;
+      var offHrs;
+      if (forced) {
+        var p1 = new Intl.DateTimeFormat('en-US', { timeZone: forced, hour12: false,
+                   year: 'numeric', month: '2-digit', day: '2-digit',
+                   hour: '2-digit', minute: '2-digit' }).format(new Date(CLOSE));
+        var m1 = /(\d+)\/(\d+)\/(\d+),?\s+(\d+):(\d+)/.exec(p1);
+        var asUTC = Date.UTC(+m1[3], +m1[1] - 1, +m1[2], +m1[4] % 24, +m1[5]);
+        offHrs = Math.round((asUTC - CLOSE) / 36e5 * 2) / 2;
+      } else {
+        offHrs = -new Date(CLOSE).getTimezoneOffset() / 60;
+      }
       var rows = document.querySelectorAll('tr[data-off]');
       for (var i = 0; i < rows.length; i++) {
         if (Math.abs(parseFloat(rows[i].getAttribute('data-off')) - offHrs) < 0.01) {
