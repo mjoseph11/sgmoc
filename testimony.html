@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>A Parishioner&rsquo;s Testimony &mdash; Rev. Fr. Shibu Venad Mathai</title>
-<meta name="description" content="What fifteen years of Fr. Shibu Venad Mathai's ministry at St. Gregorios Orthodox Church, Bensalem has looked like from the pews. A signed testimony by Mathew Joseph." />
+<title>What I Have Seen &mdash; Rev. Fr. Shibu Venad Mathai</title>
+<meta name="description" content="A personal testimony about Rev. Fr. Shibu Venad Mathai, Vicar of St. Gregorios Orthodox Church, Bensalem, by Mathew Joseph." />
 <style>
   :root {
     --green:      #47704C;
@@ -25,18 +25,11 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --green:      #7FA985;
-      --green-deep: #A9C8AE;
-      --green-soft: #1B2A1E;
-      --gold:       #D9A441;
-      --gold-lt:    #E4BA6B;
-      --paper:      #12160F;
-      --surface:    #1A1F18;
-      --ink:        #E9EDE6;
-      --muted:      #A3AC9F;
-      --faint:      #7C857A;
-      --line:       #2C332A;
-      --line-soft:  #232A21;
+      --green:      #7FA985;  --green-deep: #A9C8AE;  --green-soft: #1B2A1E;
+      --gold:       #D9A441;  --gold-lt:    #E4BA6B;
+      --paper:      #12160F;  --surface:    #1A1F18;  --ink:        #E9EDE6;
+      --muted:      #A3AC9F;  --faint:      #7C857A;
+      --line:       #2C332A;  --line-soft:  #232A21;
     }
   }
   :root[data-theme="dark"] {
@@ -50,46 +43,50 @@
   * { box-sizing: border-box; }
   body {
     margin: 0; background: var(--paper); color: var(--ink);
-    font-family: var(--sans); font-size: 16.5px; line-height: 1.68;
+    font-family: var(--sans); font-size: 16.5px; line-height: 1.7;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px 80px; }
+  .wrap { max-width: 700px; margin: 0 auto; padding: 0 24px 84px; }
 
   header.mast { padding: 56px 0 0; }
   .eyebrow {
-    font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .16em;
+    font-size: 11px; font-weight: 700; letter-spacing: .16em;
     text-transform: uppercase; color: var(--gold); margin: 0 0 14px;
   }
   h1 {
-    font-family: var(--serif); font-weight: 600; font-size: clamp(2rem, 6vw, 2.9rem);
-    line-height: 1.12; margin: 0 0 .35rem; color: var(--ink); text-wrap: balance;
+    font-family: var(--serif); font-weight: 600; font-size: clamp(2.1rem, 6.5vw, 3rem);
+    line-height: 1.1; margin: 0 0 .5rem; color: var(--ink); text-wrap: balance;
   }
   .subject {
-    font-family: var(--serif); font-size: clamp(1.05rem, 3vw, 1.25rem);
+    font-family: var(--serif); font-size: clamp(1.02rem, 3vw, 1.18rem);
     color: var(--green-deep); margin: 0 0 1.1rem;
   }
   .rule { width: 62px; height: 3px; background: var(--gold-lt); border-radius: 2px; margin: 18px 0 22px; }
-  .byline { font-size: .92rem; color: var(--muted); margin: 0 0 6px; }
+  .byline { font-size: .92rem; color: var(--muted); margin: 0; }
   .byline strong { color: var(--ink); font-weight: 600; }
+  .byline small { display: block; margin-top: 2px; }
 
-  .lede {
-    font-size: 1.06rem; color: var(--ink); border-left: 3px solid var(--gold);
-    padding-left: 1.1rem; margin: 30px 0 34px;
-  }
+  .opening { margin: 34px 0 10px; }
+  .opening p { font-size: 1.04rem; }
 
   h2 {
-    font-family: var(--serif); font-size: 1.22rem; font-weight: 600; color: var(--green-deep);
-    margin: 2.4rem 0 .6rem; letter-spacing: .01em; text-wrap: balance;
+    font-family: var(--serif); font-size: 1.24rem; font-weight: 600; color: var(--green-deep);
+    margin: 2.6rem 0 .7rem; letter-spacing: .01em; text-wrap: balance;
   }
   p { margin: 0 0 .95rem; }
   a { color: var(--green-deep); text-decoration: underline;
       text-underline-offset: 2px; text-decoration-thickness: 1px; }
   a:hover { color: var(--gold); }
 
-  .close { margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--line); }
-  .signed { font-family: var(--serif); font-size: 1.05rem; color: var(--green-deep); margin-top: 1.8rem; }
+  .qualities { margin: 1.1rem 0 1.2rem; padding-left: 1.1rem;
+               border-left: 3px solid var(--gold); font-family: var(--serif);
+               font-size: 1.06rem; color: var(--ink); }
+  .qualities span { display: block; margin: .18rem 0; }
+
+  .signed { font-family: var(--serif); font-size: 1.05rem; color: var(--green-deep);
+            margin-top: 2.2rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
   .signed small { display: block; font-family: var(--sans); font-size: .82rem;
-                  color: var(--muted); margin-top: .25rem; letter-spacing: .02em; }
+                  color: var(--muted); margin-top: .3rem; letter-spacing: .02em; }
 
   footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line-soft);
            font-size: .82rem; color: var(--faint); }
@@ -101,113 +98,134 @@
 
   <header class="mast">
     <p class="eyebrow">St. Gregorios Orthodox Church &middot; Bensalem, Pennsylvania</p>
-    <h1>A Parishioner&rsquo;s Testimony</h1>
-    <p class="subject">Rev. Fr. Shibu Venad Mathai</p>
+    <h1>What I Have Seen</h1>
+    <p class="subject">A personal testimony about Rev. Fr. Shibu Venad Mathai</p>
     <div class="rule"></div>
-    <p class="byline">By <strong>Mathew Joseph</strong> &mdash; a member of the parish since November 2017</p>
+    <p class="byline"><strong>By Mathew Joseph</strong>
+      <small>St. Gregorios Orthodox Church, Bensalem</small></p>
   </header>
 
-  <p class="lede">Shibu Achen has been our Vicar since 2011. What I want to set down here is not
-    praise but what I have actually seen, because with him the ordinary things say more than the
-    remarkable ones.</p>
-
-  <h2>Through COVID, he kept us fed</h2>
-  <p>When the parish could not gather, Achen made certain it was not left without worship. The Holy
-    Qurbana continued at Bensalem week after week &mdash; Achen, and whichever of our kappiyars was
-    taking his turn &mdash; and he had every service streamed so that families could pray along from
-    their own homes. There is no assistant vicar at Bensalem; there never has been.</p>
-  <p>Those were lonely months for most of us. What he gave the parish was continuity: the same
-    prayers, the same voice, at the same hour, when very little else was steady. He never spoke of
-    it as a sacrifice.</p>
-  <p>That stream has never stopped. The liturgy still goes out from Bensalem every Sunday, years
-    after the doors reopened &mdash; and because it does, the housebound, the unwell and those far
-    from Bensalem are still part of the congregation.</p>
-
-  <h2>He is always available</h2>
-  <p>To the church and to its people, without qualification. Every Saturday evening there is prayer.
-    Through the fasts he conducts morning, noon and evening prayer, and in the evenings he often
-    adds a convention, bringing in Metropolitans and other distinguished clergy so the parish hears
-    voices beyond his own. If you need him, he is there &mdash; at the hospital, at the house, on
-    the phone. In nine years I have not known him to be unreachable. That constancy is the thing the
-    parish leans on without noticing, the way you do not notice a floor until it gives.</p>
-
-  <h2>He brings calm</h2>
-  <p>There is a steadiness about Achen that settles a room. He does not take sides and he does not
-    lecture. He listens for longer than is comfortable, and people find they have been properly
-    heard &mdash; which is rarer than it sounds, and does more good than most advice. Whatever is
-    difficult tends to become easier in his presence, and afterwards nobody can quite say how. It is
-    a gift, and he uses it so lightly that you can miss it happening.</p>
-
-  <h2>Nothing is left to chance</h2>
-  <p>When H.&thinsp;G. Zachariah Mar Nicholovos, our Diocesan Metropolitan, visits Bensalem, the
-    remark afterwards is always the same: that everything was organised, and there was no confusion
-    at all. Thirumeni is received the same way every time. The services, the seating, the meal, the
-    people who should be presented to him &mdash; all of it worked out before anyone arrives, so
-    that the day runs without a raised voice or a hurried decision.</p>
-  <p>That is not luck. It is a man who thinks the details through in advance so that nobody else has
-    to, and so that a Metropolitan&rsquo;s visit is a joy to the parish rather than a strain on it.</p>
-
-  <h2>Fifty years, and fifteen of them his</h2>
-  <p>Our parish was founded in 1976. This year it keeps its Golden Jubilee, and Achen has led it
-    since June 2011 &mdash; the successor to its founding vicar, and the second priest in its
-    history. St. Gregorios, Bensalem is among the larger Malankara Orthodox parishes in the United
-    States, more than 150 families, and for fifteen years it has had one priest and no assistant.</p>
-  <p>What has been built in those years is on the record. The Ministry and Mission Center was
-    dedicated in 2016. The Good Samaritan Mission was founded the same year and now has more than
-    twenty-five members visiting the elderly and the isolated. The Logos Ministry was launched for
-    young adults. He is spiritual director to all of it &mdash; Sunday School, the Youth League,
-    Logos, GROW, St. Joseph&rsquo;s Forum, the Good Samaritan Mission &mdash; and he led the Jubilee
-    itself.</p>
-
-  <h2>He saw something before the rest of us</h2>
-  <p>Achen went to Nicholovos Thirumeni and sought his permission to appoint Mrs. Ceena Mariam
-    Mathew as Associate Minister &mdash; an appointment no one in our Church had made before.</p>
-  <p>His reason was the young people. He had been saying for years that a parish which loses its
-    youth has lost its future, and he judged that ours needed someone who could give them their
-    whole attention rather than what was left over at the end of a priest&rsquo;s week.</p>
-  <p>Ceena graduated from St. Vladimir&rsquo;s Orthodox Theological Seminary with a Master of Arts
-    and a Master of Theology, and has taught at seminary herself. The learning was never in
-    question. What was missing was a priest willing to ask whether it could be put to use in a
-    parish.</p>
-  <p>It has borne fruit far beyond Bensalem. She gave the Lenten message at a New Jersey parish in
-    2021. In October 2023 she was
-    <a href="https://www.neamericandiocese.org/news/news-events/diocesan-conference-of-the-marth-mariam-vanitha-samajam/429">keynote
-    speaker at the diocesan Marth Mariam Vanitha Samajam conference</a> in Philadelphia, with
-    Thirumeni in the chair and priests and deacons in the hall. She has twice given the devotional
-    message at the diocese&rsquo;s Friday fasting prayer; one of those is
-    <a href="https://www.youtube.com/watch?v=ysnFV4VGOLk">on YouTube</a>, so anyone who wonders
-    whether the appointment was justified can go and listen.</p>
-  <p>It would have been easier not to ask. He asked, and Thirumeni gave it. He did not wait to be
-    told it was possible.</p>
-
-  <h2>He will not take money</h2>
-  <p>If you try to give him money, he refuses. When he comes to bless a new car, he will not accept
-    the offering. What does reach him he sends to families in need in India, and he says nothing of
-    it to anyone. I write this knowing he would rather I did not.</p>
-
-  <h2>He came</h2>
-  <p>When my mother, Ramani Joseph, passed away, Achen was in India. He came to our home in
-    Ernakulam and conducted the first funeral service.</p>
-  <p>He was not our priest there. It was not his parish, not his duty, and nobody would have thought
-    less of him had he sent word instead. He came. I have not forgotten it, and I will not.</p>
-
-  <h2>Beyond the parish</h2>
-  <p>He is active with <a href="https://bensalemb3t.com">Building a Better Bensalem Together</a>
-    &mdash; B3T, the township&rsquo;s volunteer coalition working to keep young people away from
-    drugs and the trouble that follows them. It is not a church body. It is neighbours of every
-    background and none, working on something the whole township needs, and Achen gives his time to
-    it for children who will never sit in his church.</p>
-  <p>He has also built a real working relationship with the Coptic Orthodox Church here &mdash; the
-    kind of quiet ecumenism that happens between neighbours rather than at conferences.</p>
-
-  <div class="close">
-    <p>The priesthood is his only occupation. He holds no secular employment and never has. His time
-      has belonged to the parish and to whatever the Diocese has asked of him &mdash; the Holy
-      Transfiguration Retreat Centre, the Diocesan Council, teaching for Divyabodhanam.</p>
-    <p>I have set these things down plainly, because Achen would be embarrassed by anything warmer,
-      and because they are enough on their own.</p>
-    <p class="signed">Mathew Joseph<br /><small>St. Gregorios Orthodox Church, Bensalem</small></p>
+  <div class="opening">
+    <p>I have been a member of St. Gregorios Orthodox Church in Bensalem since November 2017.
+      Fr. Shibu Venad Mathai &mdash; Shibu Achen &mdash; has been our Vicar throughout that time.</p>
+    <p>There are many things that can be written about his education, his years of ministry, and the
+      responsibilities he has held in the Church. Those are part of the public record.</p>
+    <p>I want to write about something different: what I have personally seen.</p>
   </div>
+
+  <h2>He is present when people need him</h2>
+  <p>One of the things I came to understand very quickly about Shibu Achen is that being a priest is
+    not something he does only on Sundays.</p>
+  <p>Whether someone is in the hospital, going through a family difficulty, needs prayer, or simply
+    needs someone to listen, he makes himself available.</p>
+  <p>Our parish has more than 150 families, and for fifteen years he has served it without an
+    assistant vicar. Yet I have rarely seen him make people feel that he is too busy for them.</p>
+  <p>During the fasts, he leads morning, noon and evening prayers. Saturday evening prayer has become
+    part of the rhythm of parish life. He regularly invites Metropolitans and other clergy to speak
+    so that our parish can learn from voices beyond our own.</p>
+  <p>For many of us, his presence has simply become something we expect. That says a great deal
+    about him.</p>
+
+  <h2>During COVID, he kept the parish connected</h2>
+  <p>The COVID period showed me another side of his ministry.</p>
+  <p>When our church could no longer gather normally, Shibu Achen made sure that worship did not
+    disappear from our lives. Holy Qurbana continued to be celebrated and streamed so that families
+    could participate from their homes.</p>
+  <p>At a time when almost everything around us was uncertain, the prayers of the Church remained
+    familiar and constant.</p>
+  <p>What began out of necessity did not disappear when the pandemic ended. The services continue to
+    be streamed today, allowing elderly parishioners, people who are sick, and people who cannot
+    physically come to Bensalem to remain connected to the worship of the parish.</p>
+  <p>It is a small example of something I have seen repeatedly in him: when he recognizes a genuine
+    pastoral need, he tries to find a practical way to meet it.</p>
+
+  <h2>He listens before he speaks</h2>
+  <p>Shibu Achen is not someone who needs to dominate a conversation.</p>
+  <p>When there is disagreement or tension, he listens. He has an ability to hear different sides
+    without immediately judging one person right and another wrong. People who speak with him
+    generally leave knowing that they were heard.</p>
+  <p>That quality may not attract much attention, but in the life of a parish it matters enormously.
+    Leadership in the Church is not only about making decisions. Sometimes it is about creating
+    enough trust that people can remain together even when they disagree.</p>
+  <p>I have watched him do that many times.</p>
+
+  <h2>He prepares &mdash; and then lets others enjoy the occasion</h2>
+  <p>Whenever our Diocesan Metropolitan, H.G. Zachariah Mar Nicholovos, visits Bensalem, a tremendous
+    amount of preparation happens beforehand. The services, seating, meals, schedules and countless
+    other details have already been considered.</p>
+  <p>As a result, the parish experiences the visit as a joyful occasion rather than a last-minute
+    scramble.</p>
+  <p>That is typical of the way Shibu Achen works. Much of his leadership happens before anyone
+    notices that leadership was required.</p>
+
+  <h2>He thinks about the next generation</h2>
+  <p>One decision particularly impressed me.</p>
+  <p>Shibu Achen recognized that ministering effectively to our young people required dedicated
+    attention. With the approval of our Diocesan Metropolitan, he helped establish an Associate
+    Minister role and brought Mrs. Ceena Mariam Mathew, who holds a Master of Arts and a Master of
+    Theology from St. Vladimir&rsquo;s Orthodox Theological Seminary, into that ministry.</p>
+  <p>The significance for me was not simply the appointment itself. It was the thinking behind it.</p>
+  <p>He understood that preserving our traditions is essential &mdash; but that preserving the
+    Church also means finding ways to keep the next generation connected to those traditions.</p>
+  <p>He saw a need and was willing to pursue a new approach to address it. That combination of
+    respect for tradition and willingness to respond to changing pastoral needs is something I value
+    greatly in him.</p>
+
+  <h2>His ministry extends beyond Sunday worship</h2>
+  <p>During his years at Bensalem, the parish has developed ministries serving young adults,
+    families, elderly members and the wider community.</p>
+  <p>The Ministry and Mission Center was established. The Good Samaritan Mission began serving
+    elderly and isolated people. Ministries such as Logos have focused on younger members of the
+    Church.</p>
+  <p>He has also given his time to
+    <a href="https://bensalemb3t.com">Building a Better Bensalem Together</a>, the township&rsquo;s
+    volunteer coalition working to keep young people away from substance abuse, and has developed
+    relationships with Christians outside our own Malankara Orthodox community.</p>
+  <p>To me, this reflects a simple understanding of ministry: the responsibility of a priest does not
+    end at the church property line.</p>
+
+  <h2>I have also seen his personal simplicity</h2>
+  <p>There are qualities about a priest that do not appear in reports or official biographies. One of
+    them is his attitude toward money and recognition.</p>
+  <p>I have personally seen Shibu Achen decline offerings made to him for pastoral visits and
+    blessings. Acts of service are not something he treats as transactions.</p>
+  <p>Nor is he someone who constantly reminds people what he has done. Many of the things he does
+    become known only because someone else happens to mention them.</p>
+
+  <h2>And then there is something I will never forget</h2>
+  <p>For me, all of these observations became deeply personal when my mother, Ramani Joseph, passed
+    away.</p>
+  <p>Shibu Achen was in India at the time. Our family was in Ernakulam.</p>
+  <p>He did not have to come. It was not his parish there, and nobody would have questioned him if he
+    had simply called us and offered his prayers.</p>
+  <p>But he came to our home. And he conducted the first funeral service for my mother.</p>
+  <p>There are moments when you discover what someone&rsquo;s ministry really means to them. For me,
+    that was one of those moments.</p>
+  <p>I will never forget it.</p>
+
+  <h2>Why I am writing this</h2>
+  <p>St. Gregorios Orthodox Church is celebrating its Golden Jubilee this year. Shibu Achen has
+    served as its Vicar since June 2011 &mdash; fifteen years of the parish&rsquo;s fifty-year
+    history.</p>
+  <p>Fifteen years is long enough to see someone through ordinary Sundays and extraordinary
+    circumstances, through disagreements and celebrations, through births, illnesses and deaths.</p>
+  <p>What I have seen during my years with him is remarkably consistent.</p>
+
+  <div class="qualities">
+    <span>He is available.</span>
+    <span>He listens.</span>
+    <span>He prepares.</span>
+    <span>He cares about the next generation.</span>
+    <span>He serves without making service about himself.</span>
+    <span>And when his people need their priest, he comes.</span>
+  </div>
+
+  <p>Those qualities are difficult to capture in a r&eacute;sum&eacute;. But they are the qualities
+    by which I have come to know Shibu Achen.</p>
+  <p>That is why I wanted to set down what I have seen.</p>
+
+  <p class="signed">Mathew Joseph<br />
+    <small>St. Gregorios Orthodox Church &middot; Bensalem, Pennsylvania</small></p>
 
   <footer>
     <p>A personal testimony, written and signed. Fr. Shibu&rsquo;s ordination, education, parishes
